@@ -1,0 +1,96 @@
+--- dwl.c
++++ dwl.c
+@@ -40,7 +43,6 @@
+ #include <wlr/types/wlr_presentation_time.h>
+ #include <wlr/types/wlr_primary_selection.h>
+ #include <wlr/types/wlr_primary_selection_v1.h>
+-#include <wlr/types/wlr_scene.h>
+ #include <wlr/types/wlr_screencopy_v1.h>
+ #include <wlr/types/wlr_seat.h>
+ #include <wlr/types/wlr_server_decoration.h>
+@@ -334,6 +340,8 @@ static Monitor *xytomon(double x, double y);
+ static void xytonode(double x, double y, struct wlr_surface **psurface,
+ 		Client **pc, LayerSurface **pl, double *nx, double *ny);
+ static void zoom(const Arg *arg);
++static int in_shadow_ignore_list(const char *str);
++static void output_configure_scene(struct wlr_scene_node *node, Client *c);
+ 
+ /* variables */
+ static const char broken[] = "broken";
+@@ -447,6 +455,13 @@ applyrules(Client *c)
+ 					mon = m;
+ 		}
+ 	}
++	if (shadow_only_floating) {
++		if (c->isfloating && !in_shadow_ignore_list(appid)) {
++			c->shadow_data.enabled = 1;
++		} else {
++			c->shadow_data.enabled = 0;
++		}
++	}
+ 	wlr_scene_node_reparent(&c->scene->node, layers[c->isfloating ? LyrFloat : LyrTile]);
+ 	setmon(c, mon, newtags);
+ }
+@@ -982,6 +997,13 @@ createnotify(struct wl_listener *listener, void *data)
+ 	wlr_xdg_toplevel_set_wm_capabilities(xdg_surface->toplevel,
+ 			WLR_XDG_TOPLEVEL_WM_CAPABILITIES_FULLSCREEN);
+ 
++	c->opacity = 1;
++	c->corner_radius = 0;
++	c->shadow_data = shadow_data_get_default();
++	c->shadow_data.enabled = shadow_only_floating != 1 && !in_shadow_ignore_list(client_get_appid(c));
++	c->shadow_data.blur_sigma = shadow_blur_sigma;
++	c->shadow_data.color = shadow_color;
++
+ 	LISTEN(&xdg_surface->surface->events.commit, &c->commit, commitnotify);
+ 	LISTEN(&xdg_surface->surface->events.map, &c->map, mapnotify);
+ 	LISTEN(&xdg_surface->surface->events.unmap, &c->unmap, unmapnotify);
+@@ -1211,8 +1233,11 @@ focusclient(Client *c, int lift)
+ 
+ 		/* Don't change border color if there is an exclusive focus or we are
+ 		 * handling a drag operation */
+-		if (!exclusive_focus && !seat->drag)
++		if (!exclusive_focus && !seat->drag) {
+ 			client_set_border_color(c, focuscolor);
++			c->shadow_data.blur_sigma = shadow_blur_sigma_focus;
++			c->shadow_data.color = shadow_color_focus;
++		}
+ 	}
+ 
+ 	/* Deactivate old client if focus is changing */
+@@ -1230,6 +1255,8 @@ focusclient(Client *c, int lift)
+ 		 * and probably other clients */
+ 		} else if (old_c && !client_is_unmanaged(old_c) && (!c || !client_wants_focus(c))) {
+ 			client_set_border_color(old_c, bordercolor);
++			old_c->shadow_data.blur_sigma = shadow_blur_sigma;
++			old_c->shadow_data.color = shadow_color;
+ 
+ 			client_activate_surface(old, 0);
+ 		}
+@@ -1561,6 +1588,13 @@ mapnotify(struct wl_listener *listener, void *data)
+ 	 /* TODO: https://github.com/djpohly/dwl/pull/334#issuecomment-1330166324 */
+ 	if (c->type == XDGShell && (p = client_get_parent(c))) {
+ 		c->isfloating = 1;
++		if (shadow_only_floating) {
++			if (!in_shadow_ignore_list(client_get_appid(c))) {
++				c->shadow_data.enabled = 1;
++			} else {
++				c->shadow_data.enabled = 0;
++			}
++		}
+ 		wlr_scene_node_reparent(&c->scene->node, layers[LyrFloat]);
+ 		setmon(c, p->mon, p->tags);
+ 	} else {
+@@ -2673,8 +2723,11 @@ urgent(struct wl_listener *listener, void *data)
+ 	if (!c || c == focustop(selmon))
+ 		return;
+ 
+-	if (client_surface(c)->mapped)
++	if (client_surface(c)->mapped) {
+ 		client_set_border_color(c, urgentcolor);
++		c->shadow_data.blur_sigma = shadow_blur_sigma_focus;
++		c->shadow_data.color = shadow_color_focus;
++	}
+ 	c->isurgent = 1;
+ 	printstatus();
+ }
