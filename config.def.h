@@ -48,7 +48,11 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,           0,            -1 },
 	*/
 	{ "firefox",  NULL,       0,       	0,           1,		   -1 },
+	{ "qutebrowser", NULL,	  0,		0,	     1,		   -1 },
+	{ "chromium", NULL,	  0,		0,	     1,		   -1 },
 	{ "vlc",      NULL,       0,       	1,           1,		   -1 },
+	{ "okular",   NULL,	  0,		0,	     1,		   -1 },
+	{ "LibreOffice *", NULL,  0,		0,	     1,		   -1 },
 };
 
 /* layout(s) */
@@ -62,13 +66,14 @@ static const Layout layouts[] = {
 /* monitors */
 /* NOTE: ALWAYS add a fallback rule, even if you are completely sure it won't be used */
 static const MonitorRule monrules[] = {
-	/* name       mfact  nmaster scale layout       rotate/reflect                x    y */
-	/* example of a HiDPI laptop monitor:
-	{ "eDP-1",    0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 }, */
-	/* defaults
-	{ NULL,       0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
-	*/
-	{ NULL,	      0.55f,  1,	     1.8,  &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
+	/* name       mfact  nmaster scale layout       rotate/reflect                   x  y resx resy rate mode adaptive */
+	/* example of a HiDPI laptop monitor as 120hz: */
+/*	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 120.000f, 1, 1}, */
+	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 0.0f, 0, 0}, /* Razer Display */
+	{ "DP-2",     0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 305, 0, 0, 0.0f, 0, 0}, /* Lenovo ThinkVision */
+	/* defaults */
+	{ NULL,	      0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 0.0f, 0, 0},
+	/* mode lets the user decide whether dwl should set mode or whether mode should be custom (-1). see wlr-randr */
 };
 
 /* keyboard */
