@@ -52,7 +52,7 @@ static const Rule rules[] = {
 	{ "chromium", NULL,	  0,		0,	     1,		   -1 },
 	{ "vlc",      NULL,       0,       	1,           1,		   -1 },
 	{ "okular",   NULL,	  0,		0,	     1,		   -1 },
-	{ "LibreOffice *", NULL,  0,		0,	     1,		   -1 },
+	{ "LibreOffice Writer", NULL,  0,		0,	     1,		   -1 },
 };
 
 /* layout(s) */
@@ -225,7 +225,8 @@ static const Key keys[] = {
 	{ 0,			     XKB_KEY_Print,		 spawn,		 SHCMD("grim")},
 	{ WLR_MODIFIER_SHIFT,	     XKB_KEY_Print,		 spawn,		 SHCMD("/home/tom/.config/.dwl/grimslurp.sh")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -fork-on-lock")},
-	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("firefox")},
+	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.qutebrowser.qutebrowser")},
+	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT,	     XKB_KEY_B,		 spawn,	   	 SHCMD("firefox")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("dolphin")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_m,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_n,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/com.logseq.Logseq")},	
