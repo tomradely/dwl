@@ -52,7 +52,6 @@ static const Rule rules[] = {
 	{ "chromium", NULL,	  0,		0,	     1,		   -1 },
 	{ "vlc",      NULL,       0,       	1,           1,		   -1 },
 	{ "okular",   NULL,	  0,		0,	     1,		   -1 },
-	{ "LibreOffice Writer", NULL,  0,		0,	     1,		   -1 },
 };
 
 /* layout(s) */
@@ -144,7 +143,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[] 	    = { "alacritty", NULL };
-static const char *menucmd[]	    = { "wofi", "--show", "drun,run", NULL };
+static const char *menucmd[]	    = { "wofi", "--show", "drun", NULL };
 static const char *brighter[]	    = { "/home/tom/.config/.dwl/backlight.sh", "up", NULL };
 static const char *dimmer[]	    = { "/home/tom/.config/.dwl/backlight.sh", "down", NULL };
 static const char *up_vol[]	    = { "/home/tom/.config/.dwl/volume.sh", "up", NULL};
@@ -169,7 +168,7 @@ static const Key keys[] = {
 	{ 0,		      XF86XK_AudioPrev,   	 spawn,	   	 {.v = backward } },
 	{ 0,		      XF86XK_AudioPlay,   	 spawn,	   	 {.v = play } },
 	{ WLR_MODIFIER_LOGO,     XKB_KEY_space,	 	 spawn,	   	 {.v = ime } },
-	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
+/*	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} }, */
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 /*	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} }, */
