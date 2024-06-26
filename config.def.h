@@ -39,6 +39,9 @@ static int log_level = WLR_ERROR;
 /* Autostart */
 static const char *const autostart[] = {
 	"/home/tom/.config/.dwl/dwlstartup.sh", NULL,
+	"lxqt-policykit-agent", NULL,
+	"yambar", NULL,
+	"dunst", NULL,
 	NULL /* terminate */
 };
 
@@ -179,8 +182,8 @@ static const Key keys[] = {
 /*	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_i,          incnmaster,     {.i = -1} }, */
 	{ MODKEY,                    XKB_KEY_i,          rotatetags,     {.i = VIEW_L} },
 	{ MODKEY,                    XKB_KEY_o,          rotatetags,     {.i = VIEW_R} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_i,          rotatetags,     {.i = SHIFT_L} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_o,          rotatetags,     {.i = SHIFT_R} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_I,          rotatetags,     {.i = SHIFT_L} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,          rotatetags,     {.i = SHIFT_R} },
 	{ MODKEY,                    XKB_KEY_h,          setmfact,       {.f = -0.05f} },
 	{ MODKEY,                    XKB_KEY_l,          setmfact,       {.f = +0.05f} },
 	{ MODKEY|WLR_MODIFIER_LOGO,  XKB_KEY_h,          incgaps,       {.i = +1 } },
