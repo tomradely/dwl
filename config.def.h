@@ -13,11 +13,11 @@ static const unsigned int gappih           = 20; /* horiz inner gap between wind
 static const unsigned int gappiv           = 20; /* vert inner gap between windows */
 static const unsigned int gappoh           = 10; /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov           = 20; /* vert outer gap between windows and screen edge */
-static const float rootcolor[]		   = COLOR(0x222222ff);
+static const float rootcolor[]		   = COLOR(0x24283bff);
 static const float bordercolor[]           = COLOR(0x7aa2f7ff);
-static const float focuscolor[]            = COLOR(0xb4f9f8ff);
-static const float unfocuseddim[]          = COLOR(0x00000088);
-static const float urgentcolor[]           = COLOR(0xff0000ff);
+static const float focuscolor[]            = COLOR(0x449dabff);
+static const float unfocuseddim[]          = COLOR(0x24283b88);
+static const float urgentcolor[]           = COLOR(0xff9e64ff);
 /* To conform the xdg-protocol, set the Slpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
 static const char cursortheme[]		   = "Dracula-cursors"; /* theme from /usr/share/cursors/xorg-x11 */
