@@ -236,7 +236,7 @@ static const Key keys[] = {
 /*	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} }, */
 	{ 0,			     XKB_KEY_Print,		 spawn,		 SHCMD("grim")},
 	{ WLR_MODIFIER_SHIFT,	     XKB_KEY_Print,		 spawn,		 SHCMD("/home/tom/.config/.dwl/grimslurp.sh")},
-	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -fork-on-lock")},
+	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -init-color 0x1a1b26 -input-color 0x7aa2f7 -fail-color 0xf7768e -fork-on-lock")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.qutebrowser.qutebrowser")},
 	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT,	     XKB_KEY_B,		 spawn,	   	 SHCMD("firefox")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("dolphin")},
