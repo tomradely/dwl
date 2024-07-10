@@ -57,6 +57,7 @@ static const Rule rules[] = {
 	{ "vlc",      NULL,       0,       	1,           1,		   -1 },
 	{ "okular",   NULL,	  0,		0,	     1,		   -1 },
 	{ "pwvucontrol", NULL,    0,       	1,           0,		   -1 },
+	{ "blueman",  NULL,       0,       	1,           0,		   -1 },
 	{ "dolphin",  NULL,       0,       	1,           0,		   -1 },
 	{ "elisa",    NULL,       0,       	1,           0,		   -1 },
 	{ "lximage-qt", NULL,     0,       	1,           0,		   -1 },
