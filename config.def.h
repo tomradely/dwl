@@ -62,6 +62,7 @@ static const Rule rules[] = {
 	{ "elisa",    NULL,       0,       	1,           0,		   -1 },
 	{ "lximage-qt", NULL,     0,       	1,           0,		   -1 },
 	{ "kasts",    NULL,       0,       	1,           0,		   -1 },
+	{ "nekoray",  NULL,       0,       	1,           0,		   -1 },
 };
 
 /* layout(s) */
@@ -235,10 +236,10 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          spawn,          SHCMD("wlogout")},
 /*	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} }, */
-	{ 0,			     XKB_KEY_Print,		 spawn,		 SHCMD("grim")},
-	{ WLR_MODIFIER_SHIFT,	     XKB_KEY_Print,		 spawn,		 SHCMD("/home/tom/.config/.dwl/grimslurp.sh")},
+	{ 0,			     XKB_KEY_Print,	 spawn,		 SHCMD("grim")},
+	{ WLR_MODIFIER_SHIFT,	     XKB_KEY_Print,	 spawn,		 SHCMD("/home/tom/.config/.dwl/grimslurp.sh")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -init-color 0x1a1b26 -input-color 0x7aa2f7 -fail-color 0xf7768e -fork-on-lock")},
-	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.qutebrowser.qutebrowser")},
+	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("qutebrowser")},
 	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT,	     XKB_KEY_B,		 spawn,	   	 SHCMD("firefox")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("dolphin")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_m,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird")},
