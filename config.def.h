@@ -30,6 +30,8 @@ enum {
     SHIFT_R = 2,
 } RotateTags;
 
+static const unsigned int swipe_min_threshold = 0;
+
 /* tagging - TAGCOUNT must be no greater than 31 */
 #define TAGCOUNT (9)
 
@@ -260,4 +262,13 @@ static const Button buttons[] = {
 	{ MODKEY, BTN_LEFT,		moveresize,	{.ui = CurMove} },
 	{ MODKEY, BTN_MIDDLE,		moveresize,	{.ui = Curmfact} },
 	{ MODKEY, BTN_RIGHT,		moveresize,	{.ui = CurResize} },
+};
+
+static const Gesture gestures[] = {
+	{ 0, SWIPE_LEFT, 3, rotatetags, {.i = VIEW_R} },
+	{ 0, SWIPE_RIGHT, 3, rotatetags, {.i = VIEW_L} },
+	{ MODKEY, SWIPE_LEFT, 3, rotatetags, {.i = SHIFT_L} },
+	{ MODKEY, SWIPE_RIGHT, 3, rotatetags, {.i = SHIFT_R} },
+	{ 0, SWIPE_UP, 3, focusstack, {.i = 1} },
+	{ 0, SWIPE_DOWN, 3, focusstack, {.i = -1} },
 };
