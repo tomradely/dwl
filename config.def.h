@@ -19,7 +19,33 @@ static const float focuscolor[]            = COLOR(0x449dabff);
 static const float unfocuseddim[]          = COLOR(0x24283b88);
 static const float urgentcolor[]           = COLOR(0xff9e64ff);
 /* To conform the xdg-protocol, set the Slpha to zero to restore the old behavior */
-static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
+static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 0.0f}; /* You can also use glsl colors */
+
+static const int opacity = 1; /* flag to enable opacity */
+static const float opacity_inactive = 0.8;
+static const float opacity_active = 1.0;
+
+static const int shadow = 1; /* flag to enable shadow */
+static const int shadow_only_floating = 0; /* only apply shadow to floating windows */
+static const struct wlr_render_color shadow_color = COLOR(0x24283bff);
+static const struct wlr_render_color shadow_color_focus = COLOR(0x449dabff);
+static const int shadow_blur_sigma = 20;
+static const int shadow_blur_sigma_focus = 40;
+static const char *const shadow_ignore_list[] = { "xdg-desktop-portal-gtk", NULL }; /* list of app-id to ignore */
+
+static const int corner_radius = 0; /* 0 disables corner_radius */
+
+static const int blur = 1; /* flag to enable blur */
+static const int blur_optimized = 1;
+static const int blur_ignore_transparent = 1;
+static const struct blur_data blur_data = {
+	.radius = 5,
+	.num_passes = 3,
+	.noise = (float)0.02,
+	.brightness = (float)0.9,
+	.contrast = (float)0.9,
+	.saturation = (float)1.1,
+};
 static const char cursortheme[]		   = "Dracula-cursors"; /* theme from /usr/share/cursors/xorg-x11 */
 static const unsigned int cursorsize	   = 24;
 
