@@ -128,7 +128,6 @@ typedef struct {
 	char *output;
 	struct wlr_scene_tree *scene;
 	struct wlr_scene_rect *border[4]; /* top, bottom, left, right */
-	struct wlr_scene_rect *dimmer;
 	struct wlr_scene_tree *scene_surface;
 	struct wl_list link;
 	struct wl_list flink;
@@ -157,7 +156,7 @@ typedef struct {
 #endif
 	unsigned int bw;
 	uint32_t tags;
-	int isfloating, isurgent, isfullscreen, neverdim;
+	int isfloating, isurgent, isfullscreen;
 	uint32_t resize; /* configure serial of a pending resize */
 
 	float opacity;
@@ -275,7 +274,6 @@ typedef struct {
 	const char *title;
 	uint32_t tags;
 	int isfloating;
-	int neverdim;
 	int monitor;
 } Rule;
 
@@ -579,7 +577,6 @@ applyrules(Client *c)
 		if ((!r->title || strstr(title, r->title))
 				&& (!r->id || strstr(appid, r->id))) {
 			c->isfloating = r->isfloating;
-			c->neverdim = r-> neverdim;
 			newtags |= r->tags;
 			i = 0;
 			wl_list_for_each(m, &mons, link) {
@@ -1910,7 +1907,6 @@ focusclient(Client *c, int lift)
 		 * handling a drag operation */
 		if (!exclusive_focus && !seat->drag) {
 			client_set_border_color(c, focuscolor);
-			client_set_dimmer_state(c, 0);
 			if (shadow) {
 				c->shadow_data.blur_sigma = shadow_blur_sigma_focus;
 				c->shadow_data.color = shadow_color_focus;
@@ -1955,7 +1951,6 @@ focusclient(Client *c, int lift)
 				wlr_scene_node_for_each_buffer(&old_c->scene_surface->node, iter_xdg_scene_buffers_shadow, old_c);
 			}
 
-			client_set_dimmer_state(old_c, 1);
 			client_activate_surface(old, 0);
 		}
 	}
@@ -2357,10 +2352,6 @@ mapnotify(struct wl_listener *listener, void *data)
 				c->isurgent ? urgentcolor : bordercolor);
 		c->border[i]->node.data = c;
 	}
-
-	c->dimmer = wlr_scene_rect_create(c->scene, 0, 0, unfocuseddim);
-	c->dimmer->node.data = c;
-	client_set_dimmer_state(c, 0);
 
 	/* Initialize client geometry with room for border */
 	client_set_tiled(c, WLR_EDGE_TOP | WLR_EDGE_BOTTOM | WLR_EDGE_LEFT | WLR_EDGE_RIGHT);
@@ -2826,7 +2817,7 @@ resize(Client *c, struct wlr_box geo, int interact)
 	c->geom = geo;
 	applybounds(c, bbox);
 
-	/* Update scene-graph, including borders and dimmer*/
+	/* Update scene-graph, including borders*/
 	wlr_scene_node_set_position(&c->scene->node, c->geom.x, c->geom.y);
 	wlr_scene_node_set_position(&c->scene_surface->node, c->bw, c->bw);
 	wlr_scene_rect_set_size(c->border[0], c->geom.width, c->bw);
@@ -2836,8 +2827,6 @@ resize(Client *c, struct wlr_box geo, int interact)
 	wlr_scene_node_set_position(&c->border[1]->node, 0, c->geom.height - c->bw);
 	wlr_scene_node_set_position(&c->border[2]->node, 0, c->bw);
 	wlr_scene_node_set_position(&c->border[3]->node, c->geom.width - c->bw, c->bw);
-	wlr_scene_rect_set_size(c->dimmer, c->geom.width, c-> geom.height);
-	wlr_scene_node_set_position(&c->dimmer->node, 0, 0);
 
 	/* this is a no-op if size hasn't changed */
 	c->resize = client_set_size(c, c->geom.width - 2 * c->bw,

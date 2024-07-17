@@ -16,13 +16,12 @@ static const unsigned int gappov           = 20; /* vert outer gap between windo
 static const float rootcolor[]		   = COLOR(0x24283bff);
 static const float bordercolor[]           = COLOR(0x7aa2f7ff);
 static const float focuscolor[]            = COLOR(0x449dabff);
-static const float unfocuseddim[]          = COLOR(0x24283b88);
 static const float urgentcolor[]           = COLOR(0xff9e64ff);
 /* To conform the xdg-protocol, set the Slpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 0.0f}; /* You can also use glsl colors */
 
 static const int opacity = 1; /* flag to enable opacity */
-static const float opacity_inactive = 0.8;
+static const float opacity_inactive = 0.7;
 static const float opacity_active = 1.0;
 
 static const int shadow = 1; /* flag to enable shadow */
@@ -75,22 +74,22 @@ static const char *const autostart[] = {
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
-	/* app_id     title       tags mask     isfloating   neverdim      monitor */
+	/* app_id     title       tags mask     isfloating  monitor */
 	/* examples:
-	{ "Gimp",     NULL,       0,            1,           0,            -1 },
+	{ "Gimp",     NULL,       0,            1,          -1 },
 	*/
-	{ "firefox",  NULL,       0,       	0,           1,		   -1 },
-	{ "qutebrowser", NULL,	  0,		0,	     1,		   -1 },
-	{ "chromium", NULL,	  0,		0,	     1,		   -1 },
-	{ "vlc",      NULL,       0,       	1,           1,		   -1 },
-	{ "okular",   NULL,	  0,		0,	     1,		   -1 },
-	{ "pwvucontrol", NULL,    0,       	1,           0,		   -1 },
-	{ "blueman",  NULL,       0,       	1,           0,		   -1 },
-	{ "dolphin",  NULL,       0,       	1,           0,		   -1 },
-	{ "elisa",    NULL,       0,       	1,           0,		   -1 },
-	{ "lximage-qt", NULL,     0,       	1,           0,		   -1 },
-	{ "kasts",    NULL,       0,       	1,           0,		   -1 },
-	{ "nekoray",  NULL,       0,       	1,           0,		   -1 },
+	{ "firefox",  NULL,       0,       	0,	    -1 },
+	{ "qutebrowser", NULL,	  0,		0,	    -1 },
+	{ "chromium", NULL,	  0,		0,	    -1 },
+	{ "vlc",      NULL,       0,       	1,          -1 },
+	{ "okular",   NULL,	  0,		0,	    -1 },
+	{ "pwvucontrol", NULL,    0,       	1,          -1 },
+	{ "blueman",  NULL,       0,       	1,          -1 },
+	{ "dolphin",  NULL,       0,       	1,          -1 },
+	{ "elisa",    NULL,       0,       	1,          -1 },
+	{ "lximage-qt", NULL,     0,       	1,          -1 },
+	{ "kasts",    NULL,       0,       	1,          -1 },
+	{ "nekoray",  NULL,       0,       	1,          -1 },
 };
 
 /* layout(s) */
