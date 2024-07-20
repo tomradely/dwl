@@ -34,7 +34,7 @@ static const char *const shadow_ignore_list[] = { "xdg-desktop-portal-gtk", NULL
 
 static const int corner_radius = 0; /* 0 disables corner_radius */
 
-static const int blur = 1; /* flag to enable blur */
+static const int blur = 0; /* flag to enable blur */
 static const int blur_optimized = 1;
 static const int blur_ignore_transparent = 1;
 static const struct blur_data blur_data = {
