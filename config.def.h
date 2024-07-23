@@ -26,8 +26,8 @@ static const float opacity_active = 1.0;
 
 static const int shadow = 1; /* flag to enable shadow */
 static const int shadow_only_floating = 0; /* only apply shadow to floating windows */
-static const struct wlr_render_color shadow_color = COLOR(0x24283bff);
-static const struct wlr_render_color shadow_color_focus = COLOR(0x449dabff);
+static const struct wlr_render_color shadow_color = COLOR(0x24283Bff);
+static const struct wlr_render_color shadow_color_focus = COLOR(0x449DABff);
 static const int shadow_blur_sigma = 20;
 static const int shadow_blur_sigma_focus = 40;
 static const char *const shadow_ignore_list[] = { "xdg-desktop-portal-gtk", NULL }; /* list of app-id to ignore */
@@ -185,7 +185,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[] 	    = { "alacritty", NULL };
-static const char *menucmd[]	    = { "wofi", "--show", "drun", NULL };
+static const char *menucmd[]	    = { "fuzzel", NULL };
 static const char *brighter[]	    = { "/home/tom/.config/.dwl/backlight.sh", "up", NULL };
 static const char *dimmer[]	    = { "/home/tom/.config/.dwl/backlight.sh", "down", NULL };
 static const char *up_vol[]	    = { "/home/tom/.config/.dwl/volume.sh", "up", NULL};
