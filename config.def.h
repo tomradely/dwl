@@ -79,15 +79,15 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,          -1 },
 	*/
 	{ "firefox",  NULL,       0,       	0,	    -1 },
-	{ "qutebrowser", NULL,	  0,		0,	    -1 },
+	{ "firefox",  "Picture-in-Picture",       0,       	1,	    -1 },
+	{ "qutebrowser", NULL,	  0,		1,	    -1 },
 	{ "chromium", NULL,	  0,		0,	    -1 },
 	{ "vlc",      NULL,       0,       	1,          -1 },
 	{ "okular",   NULL,	  0,		0,	    -1 },
 	{ "pwvucontrol", NULL,    0,       	1,          -1 },
 	{ "blueman",  NULL,       0,       	1,          -1 },
 	{ "dolphin",  NULL,       0,       	1,          -1 },
-	{ "elisa",    NULL,       0,       	1,          -1 },
-	{ "lximage-qt", NULL,     0,       	1,          -1 },
+	{ "gwenview", NULL,     0,       	1,          -1 },
 	{ "kasts",    NULL,       0,       	1,          -1 },
 	{ "nekoray",  NULL,       0,       	1,          -1 },
 };
@@ -184,7 +184,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[] 	    = { "alacritty", NULL };
+static const char *termcmd[] 	    = { "foot", NULL };
 static const char *menucmd[]	    = { "fuzzel", NULL };
 static const char *brighter[]	    = { "/home/tom/.config/.dwl/backlight.sh", "up", NULL };
 static const char *dimmer[]	    = { "/home/tom/.config/.dwl/backlight.sh", "down", NULL };
