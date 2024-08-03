@@ -45,7 +45,7 @@ static const struct blur_data blur_data = {
 	.contrast = (float)0.9,
 	.saturation = (float)1.1,
 };
-static const char cursortheme[]		   = "Dracula-cursors"; /* theme from /usr/share/cursors/xorg-x11 */
+static const char cursortheme[]		   = "Future-cyan-cursors"; /* theme from /usr/share/cursors/xorg-x11 */
 static const unsigned int cursorsize	   = 24;
 
 enum {
