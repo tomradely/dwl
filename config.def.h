@@ -79,7 +79,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,          -1 },
 	*/
 	{ "firefox",  NULL,       0,       	0,	    -1 },
-	{ "firefox",  "Picture-in-Picture",       0,       	1,	    -1 },
+	{ "firefox",  "Picture-in-Picture",     0,           1,	    -1 },
 	{ "qutebrowser", NULL,	  0,		1,	    -1 },
 	{ "chromium", NULL,	  0,		0,	    -1 },
 	{ "vlc",      NULL,       0,       	1,          -1 },
@@ -87,7 +87,7 @@ static const Rule rules[] = {
 	{ "pwvucontrol", NULL,    0,       	1,          -1 },
 	{ "blueman",  NULL,       0,       	1,          -1 },
 	{ "dolphin",  NULL,       0,       	1,          -1 },
-	{ "gwenview", NULL,     0,       	1,          -1 },
+	{ "gwenview", NULL,       0,       	1,          -1 },
 	{ "kasts",    NULL,       0,       	1,          -1 },
 	{ "nekoray",  NULL,       0,       	1,          -1 },
 };
