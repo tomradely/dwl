@@ -8,7 +8,7 @@ static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const int smartgaps                 = 0;  /* 1 means no outer gap when there is only one window */
 static const int monoclegaps               = 0;  /* 1 means outer gaps in monocle layout */
-static const unsigned int borderpx         = 2;  /* border pixel of windows */
+static const unsigned int borderpx         = 0;  /* border pixel of windows */
 static const unsigned int gappih           = 20; /* horiz inner gap between windows */
 static const unsigned int gappiv           = 20; /* vert inner gap between windows */
 static const unsigned int gappoh           = 10; /* horiz outer gap between windows and screen edge */
@@ -30,9 +30,9 @@ static const struct wlr_render_color shadow_color = COLOR(0x24283Bff);
 static const struct wlr_render_color shadow_color_focus = COLOR(0x449DABff);
 static const int shadow_blur_sigma = 20;
 static const int shadow_blur_sigma_focus = 40;
-static const char *const shadow_ignore_list[] = { "xdg-desktop-portal-gtk", NULL }; /* list of app-id to ignore */
+static const char *const shadow_ignore_list[] = { "xdg-desktop-portal-gtk", "firefox-esr", "thunderbird-bin", NULL }; /* list of app-id to ignore */
 
-static const int corner_radius = 0; /* 0 disables corner_radius */
+static const int corner_radius = 8; /* 0 disables corner_radius */
 
 static const int blur = 0; /* flag to enable blur */
 static const int blur_optimized = 1;
