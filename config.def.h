@@ -74,22 +74,18 @@ static const char *const autostart[] = {
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
-	/* app_id     title       tags mask     isfloating  monitor */
+	/* app_id     	title	    	tags mask		isfloating	  	monitor */
 	/* examples:
-	{ "Gimp",     NULL,       0,            1,          -1 },
+	{ "Gimp",     	NULL,       	0,       		1,          		-1 },
 	*/
-	{ "firefox",  NULL,       0,       	0,	    -1 },
-	{ "firefox",  "Picture-in-Picture",     0,           1,	    -1 },
-	{ "qutebrowser", NULL,	  0,		1,	    -1 },
-	{ "chromium", NULL,	  0,		0,	    -1 },
-	{ "vlc",      NULL,       0,       	1,          -1 },
-	{ "okular",   NULL,	  0,		0,	    -1 },
-	{ "pwvucontrol", NULL,    0,       	1,          -1 },
-	{ "blueman",  NULL,       0,       	1,          -1 },
-	{ "dolphin",  NULL,       0,       	1,          -1 },
-	{ "gwenview", NULL,       0,       	1,          -1 },
-	{ "kasts",    NULL,       0,       	1,          -1 },
-	{ "nekoray",  NULL,       0,       	1,          -1 },
+	{ "firefox",  "Picture-in-Picture", -1,           	1,	    		-1 },
+	{ "vlc",	NULL,		-1,  			1,	    		-1 },
+	{ "qutebrowser", NULL,	  	0,			1,	    		-1 },
+	{ "pwvucontrol", NULL,    	0,       		1,          		-1 },
+	{ "blueman",  NULL,       	0,       		1,          		-1 },
+	{ "gwenview", NULL,       	0,       		1,          		-1 },
+	{ "kasts",    NULL,       	0,       		1,          		-1 },
+	{ "nekoray",  NULL,       	0,       		1,          		-1 },
 };
 
 /* layout(s) */
@@ -112,6 +108,8 @@ static const MonitorRule monrules[] = {
 /*	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 120.000f, 1, 1}, */
 	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 0.0f, 0, 0}, /* Razer Display */
 	{ "DP-2",     0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 305, 0, 0, 0.0f, 0, 0}, /* Lenovo ThinkVision */
+	{ "DP-1",     0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 0, 0, 0, 0.0f, 0, 0}, /* Office Monitor */
+
 	/* defaults */
 	{ NULL,	      0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 0.0f, 0, 0},
 	/* mode lets the user decide whether dwl should set mode or whether mode should be custom (-1). see wlr-randr */
@@ -271,7 +269,6 @@ static const Key keys[] = {
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("dolphin")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_m,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_n,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/com.logseq.Logseq")},	
-	{ WLR_MODIFIER_LOGO,	     XKB_KEY_o,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.libreoffice.LibreOffice")},
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_Terminate_Server, quit, {0} },
