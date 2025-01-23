@@ -53,16 +53,12 @@ static const Rule rules[] = {
 	/* examples:
 	{ "Gimp",     NULL,       0,            1,           0,            -1 },
 	*/
-	{ "firefox",  NULL,       0,       	0,           1,		   -1 },
+	{ "firefox",  "Picture-in-Picture",       0,       	0,           1,		   -1 },
 	{ "qutebrowser", NULL,	  0,		0,	     1,		   -1 },
-	{ "chromium", NULL,	  0,		0,	     1,		   -1 },
 	{ "vlc",      NULL,       0,       	1,           1,		   -1 },
-	{ "okular",   NULL,	  0,		0,	     1,		   -1 },
 	{ "pwvucontrol", NULL,    0,       	1,           0,		   -1 },
 	{ "blueman",  NULL,       0,       	1,           0,		   -1 },
-	{ "dolphin",  NULL,       0,       	1,           0,		   -1 },
-	{ "elisa",    NULL,       0,       	1,           0,		   -1 },
-	{ "lximage-qt", NULL,     0,       	1,           0,		   -1 },
+	{ "gwenview", NULL,     0,       	1,           0,		   -1 },
 	{ "kasts",    NULL,       0,       	1,           0,		   -1 },
 	{ "nekoray",  NULL,       0,       	1,           0,		   -1 },
 };
@@ -87,6 +83,7 @@ static const MonitorRule monrules[] = {
 /*	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 120.000f, 1, 1}, */
 	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 0.0f, 0, 0}, /* Razer Display */
 	{ "DP-2",     0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 305, 0, 0, 0.0f, 0, 0}, /* Lenovo ThinkVision */
+	{ "DP-1",     0.55f,  1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 0, 0, 0, 0.0f, 0, 0}, /* Office Monitor */
 	/* defaults */
 	{ NULL,	      0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 0.0f, 0, 0},
 	/* mode lets the user decide whether dwl should set mode or whether mode should be custom (-1). see wlr-randr */
@@ -159,8 +156,8 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[] 	    = { "alacritty", NULL };
-static const char *menucmd[]	    = { "wofi", "--show", "drun", NULL };
+static const char *termcmd[] 	    = { "foot", NULL };
+static const char *menucmd[]	    = { "fuzzel", NULL };
 static const char *brighter[]	    = { "/home/tom/.config/.dwl/backlight.sh", "up", NULL };
 static const char *dimmer[]	    = { "/home/tom/.config/.dwl/backlight.sh", "down", NULL };
 static const char *up_vol[]	    = { "/home/tom/.config/.dwl/volume.sh", "up", NULL};
