@@ -243,7 +243,7 @@ static const Key keys[] = {
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -init-color 0x1a1b26 -input-color 0x7aa2f7 -fail-color 0xf7768e -fork-on-lock")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("qutebrowser")},
 	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT,	     XKB_KEY_B,		 spawn,	   	 SHCMD("firefox")},
-	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("dolphin")},
+	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("pcmanfm-qt")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_m,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_n,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/com.logseq.Logseq")},	
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_o,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.libreoffice.LibreOffice")},
