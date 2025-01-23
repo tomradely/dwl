@@ -446,6 +446,7 @@ static pid_t child_pid = -1;
 static int locked;
 static void *exclusive_focus;
 static struct wl_display *dpy;
+static struct wl_event_loop *event_loop;
 static struct wlr_backend *backend;
 static struct wlr_scene *scene;
 static struct wlr_scene_tree *layers[NUM_LAYERS];
@@ -671,7 +672,7 @@ arrangelayers(Monitor *m)
 		arrange(m);
 	}
 
-	/* Arrange non-exlusive surfaces from top->bottom */
+	/* Arrange non-exclusive surfaces from top->bottom */
 	for (i = 3; i >= 0; i--)
 		arrangelayer(m, &m->layers[i], &usable_area, 0);
 
@@ -717,12 +718,12 @@ axisnotify(struct wl_listener *listener, void *data)
 	 * for example when you move the scroll wheel. */
 	struct wlr_pointer_axis_event *event = data;
 	wlr_idle_notifier_v1_notify_activity(idle_notifier, seat);
-	/* TODO: allow usage of scroll whell for mousebindings, it can be implemented
+	/* TODO: allow usage of scroll wheel for mousebindings, it can be implemented
 	 * checking the event's orientation and the delta of the event */
 	/* Notify the client with pointer focus of the axis event. */
 	wlr_seat_pointer_notify_axis(seat,
 			event->time_msec, event->orientation, event->delta,
-			event->delta_discrete, event->source);
+			event->delta_discrete, event->source, event->relative_direction);
 }
 
 void
@@ -3091,12 +3092,13 @@ setup(void)
 	/* The Wayland display is managed by libwayland. It handles accepting
 	 * clients from the Unix socket, manging Wayland globals, and so on. */
 	dpy = wl_display_create();
+	event_loop = wl_display_get_event_loop(dpy);
 
 	/* The backend is a wlroots feature which abstracts the underlying input and
 	 * output hardware. The autocreate option will choose the most suitable
 	 * backend based on the current environment, such as opening an X11 window
 	 * if an X11 server is running. */
-	if (!(backend = wlr_backend_autocreate(dpy, &session)))
+	if (!(backend = wlr_backend_autocreate(event_loop, &session)))
 		die("couldn't create backend");
 
 	/* Initialize the scene graph used to lay out windows */
@@ -3125,10 +3127,10 @@ setup(void)
 	 * with wlr_scene. */
 	wlr_renderer_init_wl_shm(drw, dpy);
 
-	if (wlr_renderer_get_dmabuf_texture_formats(drw)) {
+	if (wlr_renderer_get_texture_formats(drw, WLR_BUFFER_CAP_DMABUF)) {
 		wlr_drm_create(dpy, drw);
 		wlr_scene_set_linux_dmabuf_v1(scene,
-				wlr_linux_dmabuf_v1_create_with_renderer(dpy, 4, drw));
+				wlr_linux_dmabuf_v1_create_with_renderer(dpy, 5, drw));
 	}
 
 	/* Autocreates an allocator for us.
@@ -3167,7 +3169,7 @@ setup(void)
 
 	/* Creates an output layout, which a wlroots utility for working with an
 	 * arrangement of screens in a physical layout. */
-	output_layout = wlr_output_layout_create();
+	output_layout = wlr_output_layout_create(dpy);
 	LISTEN_STATIC(&output_layout->events.change, updatemons);
 	wlr_xdg_output_manager_v1_create(dpy, output_layout);
 
@@ -3291,7 +3293,6 @@ setup(void)
 	LISTEN_STATIC(&output_mgr->events.apply, outputmgrapply);
 	LISTEN_STATIC(&output_mgr->events.test, outputmgrtest);
 
-	wlr_scene_set_presentation(scene, wlr_presentation_create(dpy, backend));
 	wl_global_create(dpy, &zdwl_ipc_manager_v2_interface, 2, NULL, dwl_ipc_manager_bind);
 
 	/* Make sure XWayland clients don't connect to the parent X server,
@@ -3975,12 +3976,12 @@ iter_xdg_scene_buffers(struct wlr_scene_buffer *buffer, int sx, int sy, void *us
 
 		if (!wlr_subsurface_try_from_wlr_surface(xdg_surface->surface)) {
 			if (corner_radius > 0) {
-				wlr_scene_buffer_set_corner_radius(buffer, c->corner_radius);
+				wlr_scene_buffer_set_corner_radius(buffer, corner_radius, CORNER_LOCATION_ALL);
 			}
 
-			if (shadow) {
+		/*	if (shadow) {
 				wlr_scene_buffer_set_shadow_data(buffer, c->shadow_data);
-			}
+			} */
 
 			// if (blur) {
 			// 	wlr_scene_buffer_set_backdrop_blur(buffer, 1);
@@ -4008,7 +4009,7 @@ iter_xdg_scene_buffers_shadow(struct wlr_scene_buffer *buffer, int sx, int sy, v
 			xdg_surface &&
 			xdg_surface->role == WLR_XDG_SURFACE_ROLE_TOPLEVEL) {
 		if (!wlr_subsurface_try_from_wlr_surface(xdg_surface->surface)) {
-			wlr_scene_buffer_set_shadow_data(buffer, c->shadow_data);
+/*			wlr_scene_buffer_set_shadow_data(buffer, c->shadow_data); */
 		}
 	}
 }
