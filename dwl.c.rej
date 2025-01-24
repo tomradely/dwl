@@ -1,0 +1,13 @@
+--- dwl.c
++++ dwl.c
+@@ -200,6 +200,10 @@ struct Monitor {
+ 	struct wlr_box w; /* window area, layout-relative */
+ 	struct wl_list layers[4]; /* LayerSurface.link */
+ 	const Layout *lt[2];
++	int gappih;           /* horizontal gap between windows */
++	int gappiv;           /* vertical gap between windows */
++	int gappoh;           /* horizontal outer gaps */
++	int gappov;           /* vertical outer gaps */
+ 	unsigned int seltags;
+ 	unsigned int sellt;
+ 	uint32_t tagset[2];

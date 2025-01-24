@@ -131,7 +131,7 @@ client_get_appid(Client *c)
 	return c->surface.xdg->toplevel->app_id;
 }
 
-static inline void
+static inline int
 client_get_clip(Client *c, struct wlr_box *clip)
 {
 	struct wlr_box xdg_geom = {0};
@@ -144,12 +144,19 @@ client_get_clip(Client *c, struct wlr_box *clip)
 
 #ifdef XWAYLAND
 	if (client_is_x11(c))
-		return;
+		return 1;
 #endif
 
 	wlr_xdg_surface_get_geometry(c->surface.xdg, &xdg_geom);
 	clip->x = xdg_geom.x;
 	clip->y = xdg_geom.y;
+
+	if (xdg_geom.width <= c->geom.width - (int)c->bw
+			&& xdg_geom.height <= c->geom.height - (int)c->bw) {
+		return 0;
+	}
+
+	return 1;
 }
 
 static inline void
