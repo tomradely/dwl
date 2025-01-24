@@ -1,0 +1,15 @@
+--- dwl.c
++++ dwl.c
+@@ -365,6 +375,12 @@ static Monitor *xytomon(double x, double y);
+ static void xytonode(double x, double y, struct wlr_surface **psurface,
+ 		Client **pc, LayerSurface **pl, double *nx, double *ny);
+ static void zoom(const Arg *arg);
++static void iter_xdg_scene_buffers(struct wlr_scene_buffer *buffer, int sx, int sy, void *user_data);
++static void iter_xdg_scene_buffers_opacity(struct wlr_scene_buffer *buffer, int sx, int sy, void *user_data);
++static void iter_xdg_scene_buffers_corner_radius(struct wlr_scene_buffer *buffer, int sx, int sy, void *user_data);
++static void output_configure_scene(struct wlr_scene_node *node, Client *c);
++static int in_shadow_ignore_list(const char *str);
++static void client_set_shadow_blur_sigma(Client *c, int blur_sigma);
+ 
+ /* variables */
+ static const char broken[] = "broken";

@@ -1,4 +1,4 @@
-_VERSION = 0.5
+_VERSION = 0.7
 VERSION  = `git describe --tags --dirty 2>/dev/null || echo $(_VERSION)`
 
 PKG_CONFIG = pkg-config
@@ -8,7 +8,10 @@ PREFIX = /usr/local
 MANDIR = $(PREFIX)/share/man
 DATADIR = $(PREFIX)/share
 
+XWAYLAND =
+XLIBS =
 # Uncomment to build XWayland support
-XWAYLAND = -DXWAYLAND
-XLIBS = xcb xcb-icccm
+#XWAYLAND = -DXWAYLAND
+#XLIBS = xcb xcb-icccm
+
 CC = gcc

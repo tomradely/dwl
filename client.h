@@ -131,32 +131,25 @@ client_get_appid(Client *c)
 	return c->surface.xdg->toplevel->app_id;
 }
 
-static inline int
+static inline void
 client_get_clip(Client *c, struct wlr_box *clip)
 {
 	struct wlr_box xdg_geom = {0};
 	*clip = (struct wlr_box){
-		.x = 0,
-		.y = 0,
-		.width = c->geom.width - c->bw,
-		.height = c->geom.height - c->bw,
+		.x = c->bw,
+		.y = c->bw,
+		.width = c->geom.width - c->bw * 2,
+		.height = c->geom.height - c->bw * 2,
 	};
 
 #ifdef XWAYLAND
 	if (client_is_x11(c))
-		return 1;
+		return;
 #endif
 
 	wlr_xdg_surface_get_geometry(c->surface.xdg, &xdg_geom);
 	clip->x = xdg_geom.x;
 	clip->y = xdg_geom.y;
-
-	if (xdg_geom.width <= c->geom.width - (int)c->bw
-			&& xdg_geom.height <= c->geom.height - (int)c->bw) {
-		return 0;
-	}
-
-	return 1;
 }
 
 static inline void
@@ -335,6 +328,12 @@ static inline void
 client_set_border_color(Client *c, const float color[static 4])
 {
 	int i;
+
+	if (corner_radius > 0) {
+		wlr_scene_rect_set_color(c->round_border, color);
+		return;
+	}
+
 	for (i = 0; i < 4; i++)
 		wlr_scene_rect_set_color(c->border[i], color);
 }

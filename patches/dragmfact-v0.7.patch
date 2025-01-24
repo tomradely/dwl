@@ -1,0 +1,59 @@
+From ae44bfc181fc1532d2f0c4deb20e20634050a661 Mon Sep 17 00:00:00 2001
+From: Palanix <palanixyt@gmail.com>
+Date: Fri, 25 Mar 2022 23:45:10 +0100
+Subject: [PATCH] Change mfact using Middle mouse
+
+---
+ config.def.h | 2 +-
+ dwl.c        | 9 ++++++++-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 22d2171..c9071a5 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -171,6 +171,6 @@ static const Key keys[] = {
+ 
+ static const Button buttons[] = {
+ 	{ MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
+-	{ MODKEY, BTN_MIDDLE, togglefloating, {0} },
++	{ MODKEY, BTN_MIDDLE, moveresize,     {.ui = Curmfact} },
+ 	{ MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
+ };
+diff --git a/dwl.c b/dwl.c
+index 5bf995e..dfb0754 100644
+--- a/dwl.c
++++ b/dwl.c
+@@ -81,7 +81,7 @@
+ #define LISTEN_STATIC(E, H)     do { static struct wl_listener _l = {.notify = (H)}; wl_signal_add((E), &_l); } while (0)
+ 
+ /* enums */
+-enum { CurNormal, CurPressed, CurMove, CurResize }; /* cursor */
++enum { CurNormal, CurPressed, CurMove, CurResize, Curmfact }; /* cursor */
+ enum { XDGShell, LayerShell, X11 }; /* client types */
+ enum { LyrBg, LyrBottom, LyrTile, LyrFloat, LyrTop, LyrFS, LyrOverlay, LyrBlock, NUM_LAYERS }; /* scene layers */
+ #ifdef XWAYLAND
+@@ -1872,6 +1872,9 @@ motionnotify(uint32_t time, struct wlr_input_device *device, double dx, double d
+ 		resize(grabc, (struct wlr_box){.x = grabc->geom.x, .y = grabc->geom.y,
+ 			.width = (int)round(cursor->x) - grabc->geom.x, .height = (int)round(cursor->y) - grabc->geom.y}, 1);
+ 		return;
++	} else if (cursor_mode == Curmfact && time) {
++		selmon->mfact = (float) (cursor->x / selmon->m.width);
++		arrange(selmon);
+ 	}
+ 
+ 	/* If there's no client surface under the cursor, set the cursor image to a
+@@ -1923,6 +1926,10 @@ moveresize(const Arg *arg)
+ 				grabc->geom.y + grabc->geom.height);
+ 		wlr_cursor_set_xcursor(cursor, cursor_mgr, "se-resize");
+ 		break;
++	case Curmfact:
++		setfloating(grabc, 0);
++		selmon->mfact = (float) (cursor->x / selmon->m.width);
++		arrange(selmon);
+ 	}
+ }
+ 
+-- 
+2.45.2
+
