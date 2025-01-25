@@ -21,16 +21,16 @@ static const float urgentcolor[]           = COLOR(0xff9e64ff);
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 0.0f}; /* You can also use glsl colors */
 
 static const int opacity = 1; /* flag to enable opacity */
-static const float opacity_inactive = 0.7;
+static const float opacity_inactive = 0.6;
 static const float opacity_active = 1.0;
 
 static const int shadow = 1; /* flag to enable shadow */
 static const int shadow_only_floating = 0; /* only apply shadow to floating windows */
-static const float shadow_color[4] = COLOR(0x24283B66);
-static const float shadow_color_focus[4] = COLOR(0x449DAB66);
+static const float shadow_color[4] = COLOR(0x24283B4D);
+static const float shadow_color_focus[4] = COLOR(0x449DAB4D);
 static const int shadow_blur_sigma = 20;
 static const int shadow_blur_sigma_focus = 40;
-static const char *const shadow_ignore_list[] = { "xdg-desktop-portal-gtk", NULL }; /* list of app-id to ignore */
+static const char *const shadow_ignore_list[] = { NULL }; /* list of app-id to ignore */
 
 static const int corner_radius = 8; /* 0 disables corner_radius */
 static const int corner_radius_inner = 9; /* 0 disables corner_radius */
