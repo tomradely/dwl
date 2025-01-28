@@ -43,6 +43,9 @@ static const char *const autostart[] = {
 	"lxqt-policykit-agent", NULL,
 	"yambar", NULL,
 	"dunst", NULL,
+	"foot", NULL,
+	"firefox", NULL,
+	"/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird", NULL,
         NULL /* terminate */
 };
 
@@ -50,17 +53,16 @@ static const char *const autostart[] = {
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
 	/* app_id             title       tags mask     isfloating   monitor */
-	/* examples: */
-	{ "Gimp_EXAMPLE",     NULL,       0,            1,           -1 }, /* Start on currently visible tags floating, not tiled */
-	{ "firefox",  "Picture-in-Picture", -1,           	1,	    		-1 },
-	{ "vlc",	NULL,		-1,  			1,	    		-1 },
-	{ "qutebrowser", NULL,	  	0,			1,	    		-1 },
-	{ "pwvucontrol", NULL,    	0,       		1,          		-1 },
-	{ "blueman",  NULL,       	0,       		1,          		-1 },
-	{ "gwenview", NULL,       	0,       		1,          		-1 },
-	{ "kasts",    NULL,       	0,       		1,          		-1 },
-	{ "nekoray",  NULL,       	0,       		1,          		-1 },
- /* Start on ONLY tag "9" */
+	{ "firefox", "Picture-in-Picture", -1,          0,	     -1 }, /* Shows PIP in all tags */
+	{ "vlc",	      NULL,	  -1,  		0,	     -1 }, /* Shows VLC in all tags */
+	{ "firefox",	      NULL,       1 << 2,      	0,           -1 }, /* Starts Firefox in tag 3 */
+	{ "org.mozilla.Thunderbird", NULL, 1 << 1,      0,           -1 }, /* Starts Thunderbird in tag 2 */
+	{ "qutebrowser",      NULL,	  0,		1,	     -1 },
+	{ "pwvucontrol",      NULL,    	  0,       	1,           -1 },
+	{ "blueman",	      NULL,       0,       	1,           -1 },
+	{ "kasts",	      NULL,       0,       	1,           -1 },
+	{ "nekoray",	      NULL,       1 << 8,      	1,           -1 }, /* Starts Nekoray in tag 9 */  
+	{ "qbittorrent",      NULL,       1 << 8,      	1,           -1 }, /* Starts qBittorent in tag 9 */  
 };
 
 /* layout(s) */
