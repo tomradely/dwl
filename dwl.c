@@ -1095,8 +1095,10 @@ commitnotify(struct wl_listener *listener, void *data)
 		 * a wrong monitor.
 		 */
 		applyrules(c);
-		wlr_surface_set_preferred_buffer_scale(client_surface(c), (int)ceilf(c->mon->wlr_output->scale));
-		wlr_fractional_scale_v1_notify_scale(client_surface(c), c->mon->wlr_output->scale);
+		if (c->mon) {
+			wlr_surface_set_preferred_buffer_scale(client_surface(c), (int)ceilf(c->mon->wlr_output->scale));
+			wlr_fractional_scale_v1_notify_scale(client_surface(c), c->mon->wlr_output->scale);
+		}
 		setmon(c, NULL, 0); /* Make sure to reapply rules in mapnotify() */
 
 		wlr_xdg_toplevel_set_wm_capabilities(c->surface.xdg->toplevel, WLR_XDG_TOPLEVEL_WM_CAPABILITIES_FULLSCREEN);
@@ -3266,7 +3268,6 @@ setup(void)
 	LISTEN_STATIC(&output_mgr->events.test, outputmgrtest);
 
 	wl_global_create(dpy, &zdwl_ipc_manager_v2_interface, 2, NULL, dwl_ipc_manager_bind);
-
 	/* Make sure XWayland clients don't connect to the parent X server,
 	 * e.g when running in the x11 backend or the wayland backend and the
 	 * compositor has Xwayland support */
