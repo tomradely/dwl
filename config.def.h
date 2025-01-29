@@ -89,8 +89,8 @@ static const Rule rules[] = {
 	{ "pwvucontrol",      NULL,    	  0,       	1,           -1 },
 	{ "blueman",	      NULL,       0,       	1,           -1 },
 	{ "kasts",	      NULL,       0,       	1,           -1 },
-	{ "nekoray",	      NULL,       1 << 8,      	1,           -1 }, /* Starts Nekoray in tag 9 */  
-	{ "qbittorrent",      NULL,       1 << 8,      	1,           -1 }, /* Starts qBittorent in tag 9 */  
+	{ "nekoray",	      NULL,       1 << 8,      	0,           -1 }, /* Starts Nekoray in tag 9 */  
+	{ "qbittorrent",      NULL,       1 << 8,      	0,           -1 }, /* Starts qBittorent in tag 9 */  
 };
 
 /* layout(s) */
