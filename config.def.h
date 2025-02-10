@@ -43,9 +43,11 @@ static const char *const autostart[] = {
 	"lxqt-policykit-agent", NULL,
 	"yambar", NULL,
 	"dunst", NULL,
+	"wl-paste", "--watch", "cliphist", "store", NULL,
 	"foot", NULL,
-	"firefox", NULL,
 	"/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird", NULL,
+	"firefox", NULL,
+	"/var/lib/flatpak/exports/bin/com.logseq.Logseq", NULL,
         NULL /* terminate */
 };
 
