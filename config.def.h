@@ -71,6 +71,7 @@ static const char *const autostart[] = {
 	"lxqt-policykit-agent", NULL,
 	"yambar", NULL,
 	"dunst", NULL,
+	"wl-paste", "--watch", "cliphist", "store", NULL,
 	"foot", NULL,
 	"/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird", NULL,
 	"firefox", NULL,
@@ -90,7 +91,8 @@ static const Rule rules[] = {
 	{ "firefox", "Picture-in-Picture", -1,          0,	     -1 }, /* Shows PIP in all tags */
 	{ "vlc",	      NULL,	  -1,  		0,	     -1 }, /* Shows VLC in all tags */
 	{ "qbittorrent",      NULL,       1 << 8,      	0,           -1 }, /* Starts qBittorent in tag 9 */ 
-	{ "qutebrowser",      NULL,	  0,		1,	     -1 }, /* apps that float by default */
+	{ "Bitwarden",        NULL,	  0,		1,	     -1 }, /* apps that float by default */
+	{ "qutebrowser",      NULL,	  0,		1,	     -1 },
 	{ "pwvucontrol",      NULL,    	  0,       	1,           -1 },
 	{ "blueman",	      NULL,       0,       	1,           -1 },
 	{ "kasts",	      NULL,       0,       	1,           -1 },
