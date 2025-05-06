@@ -73,8 +73,8 @@ static const char *const autostart[] = {
 	"dunst", NULL,
 	"wl-paste", "--watch", "cliphist", "store", NULL,
 	"foot", NULL,
-	"/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird", NULL,
-	"firefox", NULL,
+	"/var/lib/flatpak/exports/bin/eu.betterbird.Betterbird", NULL,
+	"floorp", NULL,
 	"/var/lib/flatpak/exports/bin/com.logseq.Logseq", NULL,
         NULL /* terminate */
 };
@@ -84,11 +84,11 @@ static const char *const autostart[] = {
 static const Rule rules[] = {
 	/* app_id             title       tags mask     isfloating   monitor */
 	{ "Logseq", 	      NULL,       1 << 3,      	0,           -1 }, /* Starts Logseq in tag 4 */
-	{ "firefox",	      NULL,       1 << 2,      	0,           -1 }, /* Starts Firefox in tag 3 */
-	{ "org.mozilla.Thunderbird", NULL, 1 << 1,      0,           -1 }, /* Starts Thunderbird in tag 2 */
+	{ "floorp",	      NULL,       1 << 2,      	0,           -1 }, /* Starts Firefox in tag 3 */
+	{ "eu.betterbird.Betterbird", NULL, 1 << 1,      0,           -1 }, /* Starts Thunderbird in tag 2 */
 	{ "LibreOffice",      NULL, 	  1 << 3,  	0,           -1 }, /* Starts LibreOffice in tag 4 */
 	{ "nekoray",	      NULL,       1 << 8,      	0,           -1 }, /* Starts Nekoray in tag 9 */
-	{ "firefox", "Picture-in-Picture", -1,          0,	     -1 }, /* Shows PIP in all tags */
+	{ "floorp", "Picture-in-Picture", -1,          0,	     -1 }, /* Shows PIP in all tags */
 	{ "vlc",	      NULL,	  -1,  		0,	     -1 }, /* Shows VLC in all tags */
 	{ "qbittorrent",      NULL,       1 << 8,      	0,           -1 }, /* Starts qBittorent in tag 9 */ 
 	{ "Bitwarden",        NULL,	  0,		1,	     -1 }, /* apps that float by default */
@@ -280,10 +280,10 @@ static const Key keys[] = {
 	{ WLR_MODIFIER_SHIFT,	     XKB_KEY_Print,	 spawn,		 SHCMD("/home/tom/.config/.dwl/grimslurp.sh")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -init-color 0x1a1b26 -input-color 0x7aa2f7 -fail-color 0xf7768e -fork-on-lock")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("qutebrowser")},
-	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT, XKB_KEY_B, spawn,	 SHCMD("firefox")},
+	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT, XKB_KEY_B, spawn,	 SHCMD("floorp")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("pcmanfm-qt")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_o,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.libreoffice.LibreOffice")},
-	{ WLR_MODIFIER_LOGO,	     XKB_KEY_m,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.mozilla.Thunderbird")},
+	{ WLR_MODIFIER_LOGO,	     XKB_KEY_m,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/eu.betterbird.Betterbird")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_n,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/com.logseq.Logseq")},	
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
