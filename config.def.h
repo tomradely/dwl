@@ -13,10 +13,10 @@ static const unsigned int gappih           = 20; /* horiz inner gap between wind
 static const unsigned int gappiv           = 20; /* vert inner gap between windows */
 static const unsigned int gappoh           = 10; /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov           = 20; /* vert outer gap between windows and screen edge */
-static const float rootcolor[]             = COLOR(0x24283bff);
-static const float bordercolor[]           = COLOR(0x7aa2f7ff);
-static const float focuscolor[]            = COLOR(0x449dabff);
-static const float urgentcolor[]           = COLOR(0xff9e64ff);
+static const float rootcolor[]             = COLOR(0x272e33ff);
+static const float bordercolor[]           = COLOR(0x7fbbb3ff);
+static const float focuscolor[]            = COLOR(0x83c092ff);
+static const float urgentcolor[]           = COLOR(0xdbbc7fff);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 0.0f}; /* You can also use glsl colors */
 
@@ -26,14 +26,14 @@ static const float opacity_active = 1.0;
 
 static const int shadow = 1; /* flag to enable shadow */
 static const int shadow_only_floating = 0; /* only apply shadow to floating windows */
-static const float shadow_color[4] = COLOR(0x24283B4D);
-static const float shadow_color_focus[4] = COLOR(0x449DAB4D);
+static const float shadow_color[4] = COLOR(0x272e334D);
+static const float shadow_color_focus[4] = COLOR(0x83c0924D);
 static const int shadow_blur_sigma = 20;
 static const int shadow_blur_sigma_focus = 40;
 static const char *const shadow_ignore_list[] = { NULL }; /* list of app-id to ignore */
 
-static const int corner_radius = 8; /* 0 disables corner_radius */
-static const int corner_radius_inner = 9; /* 0 disables corner_radius */
+static const int corner_radius = 0; /* 0 disables corner_radius */
+static const int corner_radius_inner = 0; /* 0 disables corner_radius */
 static const int corner_radius_only_floating = 0; /* only apply corner_radius and corner_radius_inner to floating windows */
 
 static const int blur = 1; /* flag to enable blur */
@@ -72,6 +72,7 @@ static const char *const autostart[] = {
 	"yambar", NULL,
 	"dunst", NULL,
 	"wl-paste", "--watch", "cliphist", "store", NULL,
+	"kdeconnect-indicator", NULL,
 	"foot", NULL,
 	"/var/lib/flatpak/exports/bin/eu.betterbird.Betterbird", NULL,
 	"floorp", NULL,
@@ -85,17 +86,19 @@ static const Rule rules[] = {
 	/* app_id             title       tags mask     isfloating   monitor */
 	{ "Logseq", 	      NULL,       1 << 3,      	0,           -1 }, /* Starts Logseq in tag 4 */
 	{ "floorp",	      NULL,       1 << 2,      	0,           -1 }, /* Starts Firefox in tag 3 */
-	{ "eu.betterbird.Betterbird", NULL, 1 << 1,      0,           -1 }, /* Starts Thunderbird in tag 2 */
-	{ "LibreOffice",      NULL, 	  1 << 3,  	0,           -1 }, /* Starts LibreOffice in tag 4 */
-	{ "nekoray",	      NULL,       1 << 8,      	0,           -1 }, /* Starts Nekoray in tag 9 */
-	{ "floorp", "Picture-in-Picture", -1,          0,	     -1 }, /* Shows PIP in all tags */
+	{ "eu.betterbird.Betterbird", NULL, 1 << 1,     0,           -1 }, /* Starts Thunderbird in tag 2 */
+	{ "floorp", "Picture-in-Picture", -1,           0,	     -1 }, /* Shows PIP in all tags */
+	{ "jellyfinmediaplayer", NULL, 	  -1,           0,	     -1 }, /* Shows Jellyfin in all tags */
 	{ "vlc",	      NULL,	  -1,  		0,	     -1 }, /* Shows VLC in all tags */
 	{ "qbittorrent",      NULL,       1 << 8,      	0,           -1 }, /* Starts qBittorent in tag 9 */ 
 	{ "Bitwarden",        NULL,	  0,		1,	     -1 }, /* apps that float by default */
 	{ "qutebrowser",      NULL,	  0,		1,	     -1 },
+	{ "signal-desktop",   NULL,	  0,		1,	     -1 },
+	{ "wechat",	      NULL,	  0,		1,	     -1 },
 	{ "pwvucontrol",      NULL,    	  0,       	1,           -1 },
 	{ "blueman",	      NULL,       0,       	1,           -1 },
 	{ "kasts",	      NULL,       0,       	1,           -1 },
+	{ "GoldenDict-ng",    NULL,       0,       	1,           -1 },
 };
 
 /* layout(s) */
@@ -120,9 +123,9 @@ static const MonitorRule monrules[] = {
 	* -1 Sets a custom mode following the users choice
 	* All other number's set the mode at the index n, 0 is the standard mode; see wlr-randr
 	*/
-	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 0.0f, 0, 0}, /* Razer Display */
-	{ "DP-2",     0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 305, 0, 0, 0.0f, 0, 0}, /* Lenovo ThinkVision */
-	{ "DP-1",     0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 0, 0, 0, 0.0f, 0, 0}, /* Office Monitor */
+	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 120.0f, 1, 1}, /* Laptop Display */
+/*	{ "DP-2",     0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 305, 0, 0, 0.0f, 0, 0}, Lenovo ThinkVision */
+	{ "DP-2",     0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1602, 0, 1920, 1080, 30.0f, 0, 0}, /* TV */
 	/* defaults */
 	{ NULL,       0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL, -1, -1, 0, 0, 0.0f, 0 ,1},
 };
@@ -278,13 +281,14 @@ static const Key keys[] = {
 /*	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} }, */
 	{ 0,			     XKB_KEY_Print,	 spawn,		 SHCMD("grim")},
 	{ WLR_MODIFIER_SHIFT,	     XKB_KEY_Print,	 spawn,		 SHCMD("/home/tom/.config/.dwl/grimslurp.sh")},
-	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -init-color 0x1a1b26 -input-color 0x7aa2f7 -fail-color 0xf7768e -fork-on-lock")},
+	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -init-color 0x272e33 -input-color 0xa7c080 -fail-color 0xe67e80 -fork-on-lock")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("qutebrowser")},
 	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT, XKB_KEY_B, spawn,	 SHCMD("floorp")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("pcmanfm-qt")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_o,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.libreoffice.LibreOffice")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_m,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/eu.betterbird.Betterbird")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_n,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/com.logseq.Logseq")},	
+	{ WLR_MODIFIER_LOGO,	     XKB_KEY_g,		 spawn,	   	 SHCMD("goldendict $(wl-paste -n -p)")},	
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_Terminate_Server, quit, {0} },
