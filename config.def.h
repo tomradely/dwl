@@ -1,4 +1,4 @@
-/* Taken from https://github.com/djpohly/dwl/issues/466 */
+/* Taken from https://github.com/djpohlydwl/issues/466 */
 #define COLOR(hex)    { ((hex >> 24) & 0xFF) / 255.0f, \
                         ((hex >> 16) & 0xFF) / 255.0f, \
                         ((hex >> 8) & 0xFF) / 255.0f, \
@@ -7,7 +7,7 @@
 static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const int smartgaps                 = 0;  /* 1 means no outer gap when there is only one window */
-static const int monoclegaps               = 0;  /* 1 means outer gaps in monocle layout */
+static const int monoclegaps               = 1;  /* 1 means outer gaps in monocle layout */
 static const unsigned int borderpx         = 0;  /* border pixel of windows */
 static const unsigned int gappih           = 20; /* horiz inner gap between windows */
 static const unsigned int gappiv           = 20; /* vert inner gap between windows */
@@ -32,8 +32,8 @@ static const int shadow_blur_sigma = 20;
 static const int shadow_blur_sigma_focus = 40;
 static const char *const shadow_ignore_list[] = { NULL }; /* list of app-id to ignore */
 
-static const int corner_radius = 0; /* 0 disables corner_radius */
-static const int corner_radius_inner = 0; /* 0 disables corner_radius */
+static const int corner_radius = 8; /* 0 disables corner_radius */
+static const int corner_radius_inner = 8; /* 0 disables corner_radius */
 static const int corner_radius_only_floating = 0; /* only apply corner_radius and corner_radius_inner to floating windows */
 
 static const int blur = 1; /* flag to enable blur */
@@ -67,9 +67,9 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-	"/home/tom/.config/.dwl/dwlstartup.sh", NULL,
+	"/home/tom/.config/dwl/dwlstartup.sh", NULL,
 	"lxqt-policykit-agent", NULL,
-	"yambar", NULL,
+	"waybar", NULL,
 	"dunst", NULL,
 	"wl-paste", "--watch", "cliphist", "store", NULL,
 	"kdeconnect-indicator", NULL,
@@ -87,7 +87,7 @@ static const Rule rules[] = {
 	{ "Logseq", 	      NULL,       1 << 3,      	0,           -1 }, /* Starts Logseq in tag 4 */
 	{ "floorp",	      NULL,       1 << 2,      	0,           -1 }, /* Starts Firefox in tag 3 */
 	{ "eu.betterbird.Betterbird", NULL, 1 << 1,     0,           -1 }, /* Starts Thunderbird in tag 2 */
-	{ "floorp", "Picture-in-Picture", -1,           0,	     -1 }, /* Shows PIP in all tags */
+	{ "floorp", "Picture-in-Picture", -1,           1,	     -1 }, /* Shows PIP in all tags */
 	{ "jellyfinmediaplayer", NULL, 	  -1,           0,	     -1 }, /* Shows Jellyfin in all tags */
 	{ "vlc",	      NULL,	  -1,  		0,	     -1 }, /* Shows VLC in all tags */
 	{ "qbittorrent",      NULL,       1 << 8,      	0,           -1 }, /* Starts qBittorent in tag 9 */ 
@@ -99,6 +99,7 @@ static const Rule rules[] = {
 	{ "blueman",	      NULL,       0,       	1,           -1 },
 	{ "kasts",	      NULL,       0,       	1,           -1 },
 	{ "GoldenDict-ng",    NULL,       0,       	1,           -1 },
+	{ "Nextcloud",	      NULL,       0,       	1,           -1 },
 };
 
 /* layout(s) */
@@ -119,15 +120,14 @@ static const MonitorRule monrules[] = {
 	/* name       mfact nmaster scale layout       rotate/reflect              x  y  resx resy rate mode adaptive*/
 	/* example of a HiDPI laptop monitor at 120Hz:
 	{ "eDP-1",    0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL, 0, 0, 0, 0, 120.000f, 1, 1},
-	* mode let's the user decide on how dwl should implement the modes:
+	* mode let's the user decide on howdwl should implement the modes:
 	* -1 Sets a custom mode following the users choice
 	* All other number's set the mode at the index n, 0 is the standard mode; see wlr-randr
 	*/
-	{ "eDP-1",    0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 120.0f, 1, 1}, /* Laptop Display */
-/*	{ "DP-2",     0.55f,  1,      1.8,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1777, 305, 0, 0, 0.0f, 0, 0}, Lenovo ThinkVision */
-	{ "DP-2",     0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1602, 0, 1920, 1080, 30.0f, 0, 0}, /* TV */
+	{ "eDP-1",    0.55f,  1,      1.5,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1920, 0, 0, 0, 120.0f, 0, 1}, /* Laptop Display */
+	{ "DP-4",     0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 60.0f, 0, 0}, /* Lenovo ThinkVision */
 	/* defaults */
-	{ NULL,       0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL, -1, -1, 0, 0, 0.0f, 0 ,1},
+	{ NULL,       0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,  -1, -1, 0, 0, 0.0f, 0 ,0},
 };
 
 /* keyboard */
@@ -200,15 +200,15 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 /* commands */
 static const char *termcmd[] 	    = { "foot", NULL };
 static const char *menucmd[]	    = { "fuzzel", NULL };
-static const char *brighter[]	    = { "/home/tom/.config/.dwl/backlight.sh", "up", NULL };
-static const char *dimmer[]	    = { "/home/tom/.config/.dwl/backlight.sh", "down", NULL };
-static const char *up_vol[]	    = { "/home/tom/.config/.dwl/volume.sh", "up", NULL};
-static const char *down_vol[]	    = { "/home/tom/.config/.dwl/volume.sh", "down", NULL};
-static const char *mute_vol[]	    = { "/home/tom/.config/.dwl/volume.sh", "mute", NULL};
+static const char *brighter[]	    = { "/home/tom/.config/dwl/backlight.sh", "up", NULL };
+static const char *dimmer[]	    = { "/home/tom/.config/dwl/backlight.sh", "down", NULL };
+static const char *up_vol[]	    = { "/home/tom/.config/dwl/volume.sh", "up", NULL};
+static const char *down_vol[]	    = { "/home/tom/.config/dwl/volume.sh", "down", NULL};
+static const char *mute_vol[]	    = { "/home/tom/.config/dwl/volume.sh", "mute", NULL};
 static const char *forward[]	    = { "playerctl", "next", NULL};
 static const char *backward[]	    = { "playerctl", "previous", NULL};
 static const char *play[]	    = { "playerctl", "play-pause", NULL};
-static const char *ime[]	    = { "/home/tom/.config/.dwl/imetoggle.sh", NULL };
+static const char *ime[]	    = { "/home/tom/.config/dwl/imetoggle.sh", NULL };
 
 #include "shiftview.c"
 
@@ -280,11 +280,12 @@ static const Key keys[] = {
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          spawn,          SHCMD("wlogout")},
 /*	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} }, */
 	{ 0,			     XKB_KEY_Print,	 spawn,		 SHCMD("grim")},
-	{ WLR_MODIFIER_SHIFT,	     XKB_KEY_Print,	 spawn,		 SHCMD("/home/tom/.config/.dwl/grimslurp.sh")},
+	{ WLR_MODIFIER_SHIFT,	     XKB_KEY_Print,	 spawn,		 SHCMD("/home/tom/.config/dwl/grimslurp.sh")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_l,		 spawn,	   	 SHCMD("waylock -init-color 0x272e33 -input-color 0xa7c080 -fail-color 0xe67e80 -fork-on-lock")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_b,		 spawn,	   	 SHCMD("qutebrowser")},
 	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT, XKB_KEY_B, spawn,	 SHCMD("floorp")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_f,		 spawn,	   	 SHCMD("pcmanfm-qt")},
+	{ WLR_MODIFIER_LOGO,	     XKB_KEY_t,		 spawn,	   	 SHCMD("foot")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_o,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/org.libreoffice.LibreOffice")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_m,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/eu.betterbird.Betterbird")},
 	{ WLR_MODIFIER_LOGO,	     XKB_KEY_n,		 spawn,	   	 SHCMD("/var/lib/flatpak/exports/bin/com.logseq.Logseq")},	
