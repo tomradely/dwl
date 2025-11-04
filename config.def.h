@@ -22,7 +22,7 @@ static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 0.0f}; /* You ca
 
 static const int opacity = 1; /* flag to enable opacity */
 static const float opacity_inactive = 0.6;
-static const float opacity_active = 1.0;
+static const float opacity_active = 8.0;
 
 static const int shadow = 1; /* flag to enable shadow */
 static const int shadow_only_floating = 0; /* only apply shadow to floating windows */
