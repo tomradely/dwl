@@ -7,7 +7,7 @@
 static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const int smartgaps                 = 0;  /* 1 means no outer gap when there is only one window */
-static const int monoclegaps               = 1;  /* 1 means outer gaps in monocle layout */
+static const int monoclegaps               = 0;  /* 1 means outer gaps in monocle layout */
 static const unsigned int borderpx         = 0;  /* border pixel of windows */
 static const unsigned int gappih           = 20; /* horiz inner gap between windows */
 static const unsigned int gappiv           = 20; /* vert inner gap between windows */
@@ -22,7 +22,7 @@ static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 0.0f}; /* You ca
 
 static const int opacity = 1; /* flag to enable opacity */
 static const float opacity_inactive = 0.6;
-static const float opacity_active = 0.8;
+static const float opacity_active = 0.85;
 
 static const int shadow = 1; /* flag to enable shadow */
 static const int shadow_only_floating = 0; /* only apply shadow to floating windows */
@@ -68,15 +68,6 @@ static int log_level = WLR_ERROR;
 /* Autostart */
 static const char *const autostart[] = {
 	"/home/tom/.config/dwl/dwlstartup.sh", NULL,
-	"lxqt-policykit-agent", NULL,
-	"waybar", NULL,
-	"dunst", NULL,
-	"wl-paste", "--watch", "cliphist", "store", NULL,
-	"kdeconnect-indicator", NULL,
-	"foot", NULL,
-	"/var/lib/flatpak/exports/bin/eu.betterbird.Betterbird", NULL,
-	"floorp", NULL,
-	"/var/lib/flatpak/exports/bin/com.logseq.Logseq", NULL,
         NULL /* terminate */
 };
 
@@ -117,15 +108,15 @@ static const Layout layouts[] = {
 */
 /* NOTE: ALWAYS add a fallback rule, even if you are completely sure it won't be used */
 static const MonitorRule monrules[] = {
+	/* Monitor rules for laptop, home, and office delegated to kanshi. */
 	/* name       mfact nmaster scale layout       rotate/reflect              x  y  resx resy rate mode adaptive*/
 	/* example of a HiDPI laptop monitor at 120Hz:
 	{ "eDP-1",    0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL, 0, 0, 0, 0, 120.000f, 1, 1},
-	* mode let's the user decide on howdwl should implement the modes:
+	* mode lets the user decide on how dwl should implement the modes:
 	* -1 Sets a custom mode following the users choice
-	* All other number's set the mode at the index n, 0 is the standard mode; see wlr-randr
+	* All other numbers set the mode at the index n, 0 is the standard mode; see wlr-randr
 	*/
-	{ "eDP-1",    0.55f,  1,      1.5,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   1920, 0, 0, 0, 120.0f, 0, 1}, /* Laptop Display */
-	{ "DP-4",     0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 60.0f, 0, 0}, /* Lenovo ThinkVision */
+	{ "eDP-1",    0.55f,  1,      1.5,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   0, 0, 0, 0, 120.0f, 0, 1}, /* Laptop Display */
 	/* defaults */
 	{ NULL,       0.55f,  1,      1,      &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,  -1, -1, 0, 0, 0.0f, 0 ,0},
 };
